@@ -55,6 +55,9 @@ const CheckOut = () => {
         };
         const rzp1 = new window.Razorpay(options);
         rzp1.open();
+
+        // window.localStorage.removeItem('persist:cartData');
+        // window.location.reload()
         
     };
 
@@ -69,7 +72,20 @@ const CheckOut = () => {
                 email: mydata.email,
                 id: mydata._id
             });
-            initPay(data.data);
+ 
+           
+
+            initPay(data.data); 
+   
+          // Reload the current page
+        
+         window.localStorage.removeItem('persist:cartData');
+           navigate("/")
+        
+
+    
+    
+       
 
 
         } catch (error) {
