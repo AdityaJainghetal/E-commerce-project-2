@@ -8,15 +8,37 @@ import { addtoCart } from "./CardSlice";
 
 const Womens=()=> {
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [rowPerPage, setRowPerPage] = useState(10);
+  const indexOfLastItem = currentPage * rowPerPage;
+  const indexOfFirstItem = indexOfLastItem - rowPerPage;
+  const totalPages = Math.ceil(products.length / rowPerPage);
+ 
   
-
+  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
   const dispatch = useDispatch()
+
+  const handlePrev = () => {
+    setCurrentPage((prev) => Math.max(prev - 1, 1));
+  };
+
+  const handleNext = () => {
+    setCurrentPage((prev) => Math.min(prev + 1, totalPages));
+  };
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
 
 
   const navigate = useNavigate()
   const loadData = async () => {
     try {
+      
          let api = "https://e-commerce-project2-1.onrender.com/products/productdisplay?productbrand=Womens"
+          
+
       const response = await axios.get(api);
       console.log(response.data)
 
@@ -43,11 +65,11 @@ const Womens=()=> {
 
 
 
-  const proAns = products.map((item) => (
+ const proAns = currentItems.map((item) => (
     <>
 
 
-<Card style={{ width: '18rem' , backgroundColor:"skyblue", cursor:"pointer",margin:"auto", marginTop:"20px"}}>
+<Card style={{  width: '18rem' , backgroundColor:"skyblue", cursor:"pointer",margin:"auto", marginTop:"20px"}}>
       <Card.Img variant="top"
      onClick={()=>{proDisplay(item._id)}}
         src={`https://e-commerce-project2-1.onrender.com/${item.defaultImage}`}
@@ -82,7 +104,7 @@ const Womens=()=> {
                   <div className="col-md-12">
                     <div className="title">
                       <h2>
-                        our <strong className="black">products</strong>
+                        Our <strong className="black">Products</strong>
                       </h2>
                     
                     </div>
@@ -95,6 +117,15 @@ const Womens=()=> {
                 <div className="container">
                   <div className="row">{proAns}</div>
                 </div>
+                <div className="pagination">
+                <button onClick={handlePrev} disabled={currentPage === 1}>Prev</button>
+                {Array.from({ length: totalPages }, (_, index) => (
+                  <button key={index} onClick={() => handlePageClick(index + 1)} className={currentPage === index + 1 ? 'active' : ''}>
+                    {index + 1}
+                  </button>
+                ))}
+                <button onClick={handleNext} disabled={currentPage === totalPages}>Next</button>
+              </div>
               </div>
             </div>
           </Row>

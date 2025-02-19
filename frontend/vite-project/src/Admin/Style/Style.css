@@ -487,3 +487,54 @@ button:hover {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+
+
+
+
+
+
+
+
+
+
+.display-cards-page {
+    padding: 20px;
+  }
+  
+  .product-bg {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .product-bg-white {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .pagination button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .pagination button.active {
+    background-color: #0056b3;
+  }
